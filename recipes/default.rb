@@ -126,6 +126,13 @@ template "#{node['rabbitmq']['config_root']}/rabbitmq.config" do
   notifies :restart, "service[#{node['rabbitmq']['service_name']}]"
 end
 
+cookbook_file "/etc/default/rabbitmq-server" do
+  source "rabbitmq-server"
+  mode 0755
+  owner "root"
+  group "root"
+end
+
 ## You'll see setsid used in all the init statements in this cookbook. This
 ## is because there is a problem with the stock init script in the RabbitMQ
 ## debian package (at least in 2.8.2) that makes it not daemonize properly
